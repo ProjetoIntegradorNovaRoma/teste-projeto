@@ -1,0 +1,17 @@
+on:
+  pull_request:
+    types: [opened, synchronize]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Require approved reviews
+        uses: peter-evans/require-approval@v2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          dismiss-stale-reviews: true
+          require-code-owner-approval: true
+
